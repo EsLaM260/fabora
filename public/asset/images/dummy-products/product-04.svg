@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620">
+  <rect width="500" height="620" fill="#E8E3DC"/>
+  <circle cx="390" cy="90" r="42" fill="#ffffff" opacity=".55"/>
+  <rect x="46" y="505" width="120" height="1" fill="#111" opacity=".15"/>
+  <text x="46" y="545" font-family="Georgia,serif" font-size="22" fill="#111">Leather Shoulder Bag</text>
+  <text x="46" y="572" font-family="Arial,sans-serif" font-size="10" letter-spacing="2.2" fill="#111" opacity=".5">fabora / EDIT</text>
+  <path d="M245 125 Q250 110 255 125 L365 255 Q380 272 365 290 L315 345 L275 305 L210 375 L165 330 L220 265 Z" fill="#85776C"/>
+</svg>

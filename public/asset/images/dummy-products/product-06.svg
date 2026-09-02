@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620">
+  <rect width="500" height="620" fill="#EFE7DE"/>
+  <circle cx="390" cy="90" r="42" fill="#ffffff" opacity=".55"/>
+  <rect x="46" y="505" width="120" height="1" fill="#111" opacity=".15"/>
+  <text x="46" y="545" font-family="Georgia,serif" font-size="22" fill="#111">Silk Wrap Dress</text>
+  <text x="46" y="572" font-family="Arial,sans-serif" font-size="10" letter-spacing="2.2" fill="#111" opacity=".5">fabora / EDIT</text>
+  <path d="M170 100 Q250 72 330 100 L350 200 L315 205 L300 175 L300 500 L200 500 L200 175 L185 205 L150 200 Z" fill="#B69A7E"/>
+</svg>

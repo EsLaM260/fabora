@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 620">
+  <rect width="500" height="620" fill="#F0ECE6"/>
+  <circle cx="390" cy="90" r="42" fill="#ffffff" opacity=".55"/>
+  <rect x="46" y="505" width="120" height="1" fill="#111" opacity=".15"/>
+  <text x="46" y="545" font-family="Georgia,serif" font-size="22" fill="#111">Wide Leg Trousers</text>
+  <text x="46" y="572" font-family="Arial,sans-serif" font-size="10" letter-spacing="2.2" fill="#111" opacity=".5">fabora / EDIT</text>
+  <path d="M178 92 L322 92 L345 525 L258 525 L250 320 L242 525 L155 525 Z" fill="#D0BCA4"/>
+</svg>

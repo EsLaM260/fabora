@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #111;
+  background: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; }
+.serif { font-family: 'Playfair Display', Georgia, serif; }
+.container-xl { width: 100%; margin-inline: 0; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+.image-placeholder {
+  background: linear-gradient(110deg, #eeeae4 8%, #f8f5f1 18%, #eeeae4 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+.thin-border { border-color: rgba(17, 17, 17, .1); }
+
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes headerDrop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+.animate-header-drop { animation: headerDrop .7s cubic-bezier(.22,1,.36,1) both; }
+
+
+/* Calm, editorial motion */
+.site-motion > * {
+  animation: faboraReveal 700ms cubic-bezier(.22,1,.36,1) both;
+}
+.site-motion > *:nth-child(1) { animation-delay: 40ms; }
+.site-motion > *:nth-child(2) { animation-delay: 90ms; }
+.site-motion > *:nth-child(3) { animation-delay: 140ms; }
+.site-motion > *:nth-child(4) { animation-delay: 190ms; }
+.site-motion > *:nth-child(5) { animation-delay: 240ms; }
+
+.motion-soft { animation: faboraFade 900ms cubic-bezier(.22,1,.36,1) both; }
+.motion-image { animation: faboraImageIn 1100ms cubic-bezier(.22,1,.36,1) both; }
+.motion-hover { transition: transform 500ms cubic-bezier(.22,1,.36,1), box-shadow 500ms cubic-bezier(.22,1,.36,1); }
+.motion-hover:hover { transform: translateY(-3px); }
+.motion-card { transition: transform 500ms cubic-bezier(.22,1,.36,1), opacity 400ms ease; }
+.motion-card:hover { transform: translateY(-4px); }
+.motion-button { transition: transform 350ms cubic-bezier(.22,1,.36,1), opacity 250ms ease, background-color 300ms ease; }
+.motion-button:hover { transform: translateY(-1px); }
+
+@keyframes faboraReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes faboraFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes faboraImageIn {
+  from { opacity: 0; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-motion > *, .motion-soft, .motion-image { animation: none !important; }
+  .motion-hover, .motion-card, .motion-button { transition: none !important; }
+  .motion-hover:hover, .motion-card:hover, .motion-button:hover { transform: none; }
+}

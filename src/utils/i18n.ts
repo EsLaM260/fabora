@@ -1,0 +1,90 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+const resources = {
+  en: {
+    translation: {
+      nav: { shop: 'Shop', women: 'Women', men: 'Men', kids: 'Kids', sale: 'Sale', about: 'About' },
+      common: {
+        home: 'Home', shop: 'Shop', collection: 'Collection', explore: 'Explore', allProducts: 'All products', view: 'View',
+        selected: 'Selected', availableColor_one: 'available color', availableColor_other: 'available colors', product: 'Product', email: 'Email address',
+        new: 'New', loading: 'Loading…', clear: 'Clear', filter: 'Filter', close: 'Close', editBag: 'Edit bag',
+        continueShopping: 'Continue shopping', backToBag: 'Back to bag', secureCheckout: 'Secure checkout', secureEncrypted: 'Secure & encrypted',
+        sizeGuide: 'Size guide', chooseColor: 'Choose your color', selectColor: 'Select a color to continue', color: 'Color', size: 'Size',
+        quantity: 'Quantity', subtotal: 'Subtotal', shipping: 'Shipping', discount: 'Discount', total: 'Total', items: 'items',
+        itemSavings: 'Item savings', calculated: 'Calculated', yes: 'Yes', no: 'No', decrease: 'Decrease quantity', increase: 'Increase quantity', remove: 'Remove', wishlist: 'Add to wishlist'
+      },
+      hero: { eyebrow: 'fabora — New Season', title: 'Quiet confidence, designed for every day.', body: 'Modern silhouettes, considered textures and elevated essentials made for the way you move.', cta: 'Shop the collection', secondary: 'Explore new in' },
+      home: { categories: 'Shop by category', edit: 'The edit', best: 'Best sellers', essentials: 'The essentials', view: 'View all', newsletter: 'Join the fabora list', newsletterText: 'Early access, new drops and private offers — straight to your inbox.', newsletterLabel: 'Newsletter', seo: 'Modern fashion, quietly confident', email: 'Email address', join: 'Join', explore: 'Explore', newSeason: 'New season', limitedTime: 'Limited time', saleTitle: 'Quiet pieces. Better prices.', shopSale: 'Shop the sale', newArrivals: 'New arrivals', arrivalsTitle: 'Fresh silhouettes, just landed.' },
+      product: {
+        add: 'Add to bag', adding: 'Adding…', select: 'Select a size', details: 'Details', shipping: 'Shipping & returns', related: 'You may also like',
+        everyday: 'Made for everyday wear', collection: 'Collection', delivery: 'Fast delivery', returns: 'Easy returns', secure: 'Secure checkout',
+        care: 'Care', descriptionFallback: 'A refined essential with a considered fit and effortless finish.', sizeGuide: 'Size guide',
+        shippingText: 'Available for Egypt and UAE. Final shipping rates are calculated from your cart and destination.',
+        careText: 'Follow the care label. Store folded or hung neatly and avoid prolonged exposure to direct heat.',
+        added: 'Added to your bag', addError: 'Could not add this item yet'
+      },
+      shop: { seo: 'Shop the collection', title: 'The collection', filter: 'Filter', sort: 'Sort by', search: 'Search pieces…', all: 'All', newest: 'Sort — Newest', oldest: 'Sort — Oldest', nothing: 'Nothing found.', tryDifferent: 'Try a different search.', searchLabel: 'Search', minPrice: 'Min price', maxPrice: 'Max price' },
+      category: { editedSelection: 'An edited selection for {{name}}. Explore the latest pieces and everyday essentials.', shopByCategory: 'Shop by category', allCategory: 'All {{name}}' },
+      cart: { bag: 'Your bag', shoppingCart: 'Shopping cart', summary: 'Summary', empty: 'Your bag is empty.', emptyText: 'Discover pieces to build your everyday edit.', proceed: 'Proceed to checkout', reviewText: 'You can review and edit your delivery and payment details before the order is submitted.', loading: 'Loading your bag…' },
+      checkout: {
+        secure: 'Secure & encrypted', secureCheckout: 'Secure checkout', title: 'Complete your order', details: 'Details', shipping: 'Shipping', payment: 'Payment', yourOrder: 'Your order', summary: 'Order summary',
+        carried: 'Color, size and quantity selections from your bag are carried into checkout.', nothing: 'Nothing to check out', empty: 'Your bag is empty.', emptyText: 'Add something you love, then come back to complete your order.', contact: 'Contact',
+        deliveryAddress: 'Delivery address', email: 'Email address', phone: 'Phone number', firstName: 'First name', lastName: 'Last name', address: 'Address', city: 'City',
+        state: 'State / region', postal: 'Postal code', country: 'Country', shippingMethod: 'Shipping method', paymentMethod: 'Payment method', payOnDelivery: 'Cash on delivery', card: 'Card payment',
+        shippingText: 'Standard delivery · 2–5 business days', paymentText: 'You will be redirected to the secure payment gateway.', placeOrder: 'Place order', processing: 'Processing…', ready: 'Your checkout details are ready. Payment integration can be connected next.', shippingStandard: 'Standard delivery', cardText: 'Secure card payment through your connected payment gateway.', codText: 'Pay when your order arrives, where available.', agreement: 'By continuing, you agree to fabora’s terms and privacy policy.', errors: { emailError: 'Enter a valid email address.', firstNameError: 'Enter your first name.', lastNameError: 'Enter your last name.', phoneError: 'Enter a valid phone number.', addressError: 'Enter your delivery address.', cityError: 'Enter your city.', countryError: 'Choose your country.', postalError: 'Enter your postal code.' }, signingIn: 'Signing in…'
+      },
+      auth: {
+        login: 'Welcome back', loginBody: 'Sign in to keep your bag and preferences with you.', register: 'Create account', registerBody: 'A few details, then you are ready to shop.', email: 'Email address', password: 'Password', forgot: 'Forgot password?', signIn: 'Sign in',
+        reset: 'Reset password', resetBody: 'Enter the 6-digit code and choose a new password.', send: 'Send OTP', new: 'New password', firstName: 'First name', lastName: 'Last name', phone: 'Phone (+20...)', birthday: 'Birthday', gender: 'Gender',
+        prefer: 'Prefer not to say', female: 'Female', male: 'Male', creating: 'Creating…', already: 'Already have an account?', newTo: 'New to fabora?', create: 'Create an account', sending: 'Sending…', resetting: 'Resetting…',
+        welcome: 'Welcome back', signInError: 'Unable to sign in — check your details', validEmail: 'Enter a valid email.', passwordMin: 'Minimum 8 characters.', activationSent: 'Activation code sent to your email', registerError: 'Could not create the account',
+        forgotBody: 'Enter your email and we will send a 6-digit OTP.', requestSuccess: 'If the account exists, a reset code was sent', requestError: 'Request could not be completed', invalidOtp: 'Invalid or expired OTP', resetSuccess: 'Password reset successfully', backToSignIn: 'Back to sign in', signingIn: 'Signing in…'
+      },
+      about: { seo: 'About fabora', eyebrow: 'fabora / ABOUT', title: 'A quieter way to dress.', intro: 'fabora is a modern fashion label shaped around restraint, ease and pieces that keep their place in your wardrobe.', p1: 'We design for warm climates and real days: considered proportions, breathable materials and a palette that works beyond a single season.', p2: 'Our approach is editorial but practical. Every collection is edited with the belief that less, when done carefully, can say more.', considered: 'Considered', consideredText: 'We remove noise from the wardrobe and keep what earns its place.', regional: 'Regional', regionalText: 'Built around Egypt and the UAE, with climate and movement in mind.', everyday: 'Everyday', everydayText: 'Pieces that work at 8am, 8pm and every hour between.' },
+      legal: { termsLabel: 'fabora / TERMS', termsTitle: 'Terms & Conditions', termsText: 'These terms outline the basic rules for using the fabora website, placing orders, and interacting with our services.', privacyLabel: 'fabora / PRIVACY', privacyTitle: 'Privacy Policy', privacyText: 'We respect your privacy and use your information only as needed to provide, secure, and improve the fabora experience.' },
+      footer: { social: 'Follow us', terms: 'Terms', privacy: 'Privacy', about: 'About Us', deliveryAnnouncement: 'COMPLIMENTARY DELIVERY ON ORDERS OVER EGP 3,000', description: 'Modern essentials for a considered wardrobe. Designed between Cairo and the wider region.', clientCare: 'Client care', shipping: 'Shipping & delivery', returns: 'Returns & exchanges', stayConnected: 'Stay connected', connectedText: 'New drops and private edits, once in a while.', subscribe: 'Subscribe', signedIn: 'Signed in' }
+    }
+  },
+  ar: {
+    translation: {
+      nav: { shop: 'المتجر', women: 'نساء', men: 'رجال', kids: 'أطفال', sale: 'التخفيضات', about: 'من نحن' },
+      common: {
+        home: 'الرئيسية', shop: 'المتجر', collection: 'المجموعة', explore: 'اكتشف', allProducts: 'كل المنتجات', view: 'عرض', product: 'منتج', email: 'البريد الإلكتروني',
+        new: 'جديد', loading: 'جارٍ التحميل…', clear: 'مسح', filter: 'تصفية', close: 'إغلاق', editBag: 'تعديل الحقيبة', continueShopping: 'متابعة التسوق', backToBag: 'العودة إلى الحقيبة',
+        secureCheckout: 'دفع آمن', secureEncrypted: 'آمن ومشفر', sizeGuide: 'دليل المقاسات', chooseColor: 'اختر اللون', selectColor: 'اختر لونًا للمتابعة', color: 'اللون', size: 'المقاس', quantity: 'الكمية',
+        subtotal: 'الإجمالي الفرعي', shipping: 'الشحن', discount: 'الخصم', total: 'الإجمالي', items: 'منتجات', itemSavings: 'توفير المنتجات', calculated: 'يُحسب لاحقًا', selected: 'محدد', yes: 'نعم', no: 'لا', decrease: 'تقليل الكمية', increase: 'زيادة الكمية', remove: 'إزالة', wishlist: 'أضف إلى المفضلة',
+        availableColor_one: 'لون متاح', availableColor_other: 'ألوان متاحة'
+      },
+      hero: { eyebrow: 'فابورة — الموسم الجديد', title: 'ثقة هادئة، مصممة لكل يوم.', body: 'قصّات عصرية وخامات مختارة وقطع أساسية راقية تناسب إيقاع حياتك.', cta: 'تسوق المجموعة', secondary: 'اكتشف الجديد' },
+      home: { categories: 'تسوق حسب الفئة', edit: 'مختارات الموسم', best: 'الأكثر مبيعًا', essentials: 'القطع الأساسية', view: 'عرض الكل', newsletter: 'انضم إلى قائمة فابورة', newsletterText: 'وصول مبكر، إصدارات جديدة وعروض خاصة مباشرة إلى بريدك.', newsletterLabel: 'النشرة البريدية', seo: 'أزياء عصرية بثقة هادئة', email: 'البريد الإلكتروني', join: 'انضمام', explore: 'اكتشف', newSeason: 'الموسم الجديد', limitedTime: 'لفترة محدودة', saleTitle: 'قطع هادئة. بأسعار أفضل.', shopSale: 'تسوق التخفيضات', newArrivals: 'وصل حديثًا', arrivalsTitle: 'قصّات جديدة وصلت للتو.' },
+      product: {
+        add: 'أضف إلى الحقيبة', adding: 'جارٍ الإضافة…', select: 'اختر المقاس', details: 'التفاصيل', shipping: 'الشحن والاسترجاع', related: 'قد يعجبك أيضًا', everyday: 'مصمم للاستخدام اليومي', collection: 'المجموعة', delivery: 'توصيل سريع', returns: 'استرجاع سهل', secure: 'دفع آمن', care: 'العناية',
+        descriptionFallback: 'قطعة أساسية راقية بقصة مدروسة ولمسة نهائية سهلة.', sizeGuide: 'دليل المقاسات', shippingText: 'متاح في مصر والإمارات. يتم احتساب تكلفة الشحن النهائية حسب السلة والوجهة.', careText: 'اتبع تعليمات العناية الموجودة على الملصق. احفظ القطعة مطوية أو معلقة وتجنب تعرضها الطويل للحرارة المباشرة.', added: 'تمت إضافة المنتج إلى الحقيبة', addError: 'تعذر إضافة المنتج حاليًا'
+      },
+      shop: { seo: 'تسوق المجموعة', title: 'المجموعة', filter: 'تصفية', sort: 'ترتيب حسب', search: 'ابحث عن قطعة…', all: 'الكل', newest: 'ترتيب — الأحدث', oldest: 'ترتيب — الأقدم', nothing: 'لم يتم العثور على نتائج.', tryDifferent: 'جرّب بحثًا مختلفًا.', minPrice: 'الحد الأدنى للسعر', maxPrice: 'الحد الأقصى للسعر', searchLabel: 'بحث' },
+      category: { editedSelection: 'مختارات من {{name}}. اكتشف أحدث القطع والأساسيات اليومية.', shopByCategory: 'تسوق حسب الفئة', allCategory: 'كل {{name}}' },
+      cart: { bag: 'حقيبتك', shoppingCart: 'سلة التسوق', summary: 'الملخص', empty: 'حقيبتك فارغة.', emptyText: 'اكتشف قطعًا تضيفها إلى اختياراتك اليومية.', proceed: 'المتابعة إلى الدفع', reviewText: 'يمكنك مراجعة وتعديل بيانات التوصيل والدفع قبل تأكيد الطلب.', loading: 'جارٍ تحميل حقيبتك…' },
+      checkout: {
+        secure: 'آمن ومشفر', secureCheckout: 'دفع آمن', title: 'أكمل طلبك', details: 'البيانات', shipping: 'الشحن', payment: 'الدفع', yourOrder: 'طلبك', summary: 'ملخص الطلب', carried: 'اختيارات اللون والمقاس والكمية من حقيبتك تنتقل إلى صفحة الدفع.',
+        nothing: 'لا يوجد ما يمكن إتمامه', empty: 'حقيبتك فارغة.', emptyText: 'أضف ما يعجبك ثم عد لإكمال طلبك.', contact: 'بيانات التواصل', deliveryAddress: 'عنوان التوصيل', email: 'البريد الإلكتروني', phone: 'رقم الهاتف', firstName: 'الاسم الأول', lastName: 'اسم العائلة', address: 'العنوان', city: 'المدينة', state: 'المحافظة / المنطقة', postal: 'الرمز البريدي', country: 'الدولة', shippingMethod: 'طريقة الشحن', paymentMethod: 'طريقة الدفع', payOnDelivery: 'الدفع عند الاستلام', card: 'الدفع بالبطاقة', shippingText: 'توصيل عادي · من 2 إلى 5 أيام عمل', paymentText: 'سيتم تحويلك إلى بوابة الدفع الآمنة.', placeOrder: 'تأكيد الطلب', processing: 'جارٍ المعالجة…', ready: 'بيانات الدفع جاهزة. يمكن ربط بوابة الدفع لاحقًا.', shippingStandard: 'توصيل عادي', cardText: 'دفع آمن بالبطاقة عبر بوابة الدفع المرتبطة.', codText: 'ادفع عند وصول طلبك، حيثما يتوفر ذلك.', agreement: 'بالمتابعة، فإنك توافق على شروط وخصوصية فابورة.', errors: { emailError: 'أدخل بريدًا إلكترونيًا صحيحًا.', firstNameError: 'أدخل اسمك الأول.', lastNameError: 'أدخل اسم العائلة.', phoneError: 'أدخل رقم هاتف صحيحًا.', addressError: 'أدخل عنوان التوصيل.', cityError: 'أدخل اسم المدينة.', countryError: 'اختر الدولة.', postalError: 'أدخل الرمز البريدي.' }, signingIn: 'جارٍ تسجيل الدخول…'
+      },
+      auth: {
+        login: 'مرحبًا بعودتك', loginBody: 'سجّل الدخول للاحتفاظ بحقيبتك وتفضيلاتك.', register: 'إنشاء حساب', registerBody: 'بضع بيانات فقط، ثم يمكنك بدء التسوق.', email: 'البريد الإلكتروني', password: 'كلمة المرور', forgot: 'هل نسيت كلمة المرور؟', signIn: 'تسجيل الدخول', reset: 'إعادة تعيين كلمة المرور', resetBody: 'أدخل الرمز المكون من 6 أرقام واختر كلمة مرور جديدة.', send: 'إرسال الرمز', new: 'كلمة المرور الجديدة', firstName: 'الاسم الأول', lastName: 'اسم العائلة', phone: 'الهاتف (+20...)', birthday: 'تاريخ الميلاد', gender: 'النوع', prefer: 'أفضل عدم التحديد', female: 'أنثى', male: 'ذكر', creating: 'جارٍ الإنشاء…', already: 'لديك حساب بالفعل؟', newTo: 'جديد على فابورة؟', create: 'إنشاء حساب', sending: 'جارٍ الإرسال…', resetting: 'جارٍ إعادة التعيين…', welcome: 'مرحبًا بعودتك', signInError: 'تعذر تسجيل الدخول — تحقق من بياناتك', validEmail: 'أدخل بريدًا إلكترونيًا صحيحًا.', passwordMin: '8 أحرف على الأقل.', activationSent: 'تم إرسال رمز التفعيل إلى بريدك الإلكتروني', registerError: 'تعذر إنشاء الحساب', forgotBody: 'أدخل بريدك الإلكتروني وسنرسل رمز OTP من 6 أرقام.', requestSuccess: 'إذا كان الحساب موجودًا، فسيتم إرسال رمز إعادة التعيين', requestError: 'تعذر إكمال الطلب', invalidOtp: 'الرمز غير صالح أو منتهي الصلاحية', resetSuccess: 'تمت إعادة تعيين كلمة المرور بنجاح', backToSignIn: 'العودة لتسجيل الدخول', signingIn: 'جارٍ تسجيل الدخول…'
+      },
+      about: { seo: 'About fabora', eyebrow: 'فابورة / من نحن', title: 'أسلوب أكثر هدوءًا في الأزياء.', intro: 'فابورة علامة أزياء عصرية تقوم على البساطة والراحة وقطع تحتفظ بمكانها في خزانتك.', p1: 'نصمم للمناخات الدافئة والأيام الحقيقية: نسب مدروسة، خامات تسمح بالتنفس ولوحة ألوان تتجاوز موسمًا واحدًا.', p2: 'نهجنا تحريري لكنه عملي. نحرر كل مجموعة انطلاقًا من أن الأقل، عندما يُنفذ بعناية، يمكنه أن يقول أكثر.', considered: 'مدروس', consideredText: 'نزيل الضوضاء من الخزانة ونحتفظ بما يستحق مكانه.', regional: 'محلي', regionalText: 'مصمم لمصر والإمارات مع مراعاة المناخ والحركة.', everyday: 'يومي', everydayText: 'قطع تعمل من الثامنة صباحًا حتى الثامنة مساءً وكل ساعة بينهما.' },
+      legal: { termsLabel: 'فابورة / الشروط', termsTitle: 'الشروط والأحكام', termsText: 'توضح هذه الشروط القواعد الأساسية لاستخدام موقع فابورة وإتمام الطلبات والتفاعل مع خدماتنا.', privacyLabel: 'فابورة / الخصوصية', privacyTitle: 'سياسة الخصوصية', privacyText: 'نحترم خصوصيتك ونستخدم معلوماتك فقط بالقدر اللازم لتقديم تجربة فابورة وتأمينها وتحسينها.' },
+      footer: { social: 'تابعنا', terms: 'الشروط', privacy: 'الخصوصية', about: 'من نحن', deliveryAnnouncement: 'توصيل مجاني داخل مصر والإمارات للطلبات التي تتجاوز 3,000 جنيه', description: 'أساسيات عصرية لخزانة مدروسة. صُممت بين القاهرة والمنطقة.', clientCare: 'خدمة العملاء', shipping: 'الشحن والتوصيل', returns: 'الاسترجاع والاستبدال', stayConnected: 'ابقَ على تواصل', connectedText: 'إصدارات جديدة ومختارات خاصة من وقت لآخر.', subscribe: 'اشتراك', signedIn: 'تم تسجيل الدخول' }
+    }
+  }
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: typeof window !== 'undefined' ? (localStorage.getItem('fabora-lang') || 'en') : 'en',
+  fallbackLng: 'en',
+  interpolation: { escapeValue: false },
+  pluralSeparator: '_',
+});
+
+export default i18n;
