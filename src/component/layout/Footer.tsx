@@ -15,8 +15,8 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-ink text-white mt-24">
-      <div className="w-full px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10">
+    <footer className="bg-ink text-white mt-16">
+      <div className="w-full px-5 md:px-8 py-12 grid md:grid-cols-4 gap-10">
         <div>
 <img
   src="/asset/images/fabora-logo-dark.svg"

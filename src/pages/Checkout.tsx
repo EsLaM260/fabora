@@ -8,6 +8,7 @@ import CheckoutFormSection from '../component/checkout/CheckoutFormSection';
 import CheckoutSummarySection from '../component/checkout/CheckoutSummarySection';
 
 export default function Checkout() {
+  const { t } = useTranslation();
   const query = useQuery({ queryKey: ['cart'], queryFn: getCart, retry: false });
   const items = query.data?.items ?? [];
   const pricing = query.data?.pricing ?? { baseSubtotal: 0, effectiveSubtotal: 0, totalLineDiscounts: 0, shippingFee: 0, totalDiscount: 0, finalTotal: 0 };

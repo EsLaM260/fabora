@@ -13,7 +13,7 @@ export default function CategorySection({ categories }: { categories: any[] }) {
   const { t, i18n } = useTranslation();
 
   return (
-    <section className="w-full px-5 md:px-8 py-16 md:py-20 flex justify-center bg-white">
+    <section className="w-full px-5 md:px-8 py-12 md:py-14 flex justify-center bg-white">
       <div className="w-full max-w-5xl">
         <div className="text-center mb-8">
           <div className="text-[10px] tracking-[.2em] uppercase text-muted">{t('home.categories')}</div>

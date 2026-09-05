@@ -27,6 +27,7 @@ export default function Header() {
   const [search, setSearch] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const cartQuery = useQuery({ queryKey: ['cart'], queryFn: getCart, retry: false });
   const cartItems = cartQuery.data?.items ?? [];
@@ -40,6 +41,7 @@ export default function Header() {
 
   useEffect(() => {
     setCartOpen(false);
+    setSearchOpen(false);
   }, [location.pathname, location.search]);
 
   useEffect(() => {
@@ -152,15 +154,6 @@ export default function Header() {
               </div>
             ))}
 
-            {/* <Link className={`${mutedTextClass} hover:opacity-100 transition-opacity`} to="/shop?sortBy=sale">
-              {t('nav.sale')}
-            </Link> */}
-            {/* <Link
-              className={`${location.pathname === '/about' ? 'font-semibold' : `${mutedTextClass} hover:opacity-100`} transition-opacity`}
-              to="/about"
-            >
-              {t('nav.about')}
-            </Link> */}
           </nav>
         </div>
 
@@ -187,18 +180,38 @@ export default function Header() {
         </Link>
 
         <div className="flex items-center justify-end gap-2 min-w-0">
-          <form onSubmit={submit} className={`hidden md:flex items-center border px-3 py-2 transition-colors ${useLightHeader ? 'border-white/35 bg-white/10' : 'thin-border bg-white'}`}>
-            <Search size={15} />
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t('shop.search')}
-              className="bg-transparent outline-none w-24 text-xs ml-2 placeholder:opacity-60"
-            />
-          </form>
-          {/* <button className="p-2 transition-transform duration-200 hover:scale-110" onClick={() => nav('/login')} aria-label="Account">
+          <div className="relative hidden md:block">
+            <button
+              type="button"
+              className={`w-10 h-10 p-2 grid place-items-center bg-transparent border-0 transition-transform duration-300 `}
+              onClick={() => setSearchOpen((value) => !value)}
+              aria-label={t('shop.search')}
+              aria-expanded={searchOpen}
+            >
+              <Search size={17} className={`transition-transform duration-300 ${searchOpen ? 'rotate-90' : ''}`} />
+            </button>
+            <div className={`absolute right-0 top-full mt-3 origin-top-right transition-all duration-300 ${searchOpen ? 'visible opacity-100 translate-y-0 scale-100' : 'invisible opacity-0 -translate-y-2 scale-95 pointer-events-none'}`}>
+              <form
+                onSubmit={submit}
+                className="w-[290px] border thin-border bg-white p-2 shadow-[0_18px_50px_rgba(0,0,0,.12)] rounded-2xl"
+              >
+                <div className="flex items-center gap-2 rounded-xl border border-black/10 px-3 py-2.5 text-ink focus-within:border-ink transition-colors">
+                  <Search size={15} className="shrink-0 text-ink/50" />
+                  <input
+                    autoFocus={searchOpen}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder={t('shop.search')}
+                    className="bg-transparent outline-none flex-1 text-xs text-ink placeholder:text-ink/40"
+                  />
+                  <span className="text-[9px] uppercase tracking-[.14em] text-ink/35">↵</span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <button className="p-2 transition-transform duration-200 hover:scale-110" onClick={() => nav('/login')} aria-label="Account">
             <UserRound size={18} />
-          </button> */}
+          </button>
           <button className="p-2 relative transition-transform duration-200 hover:scale-110" onClick={() => setCartOpen((value) => !value)} aria-label={t('cart.bag')} aria-expanded={cartOpen}>
             <ShoppingBag size={19} />
             {displayCartCount > 0 && (

@@ -43,7 +43,10 @@ export default function Product() {
     );
   }
 
-  const gallery = Array.isArray(product.media) ? product.media.map((m: any) => imageOf([m], images[0])).filter(Boolean) : [];
+  const localDemoGallery = images.slice(0, 6);
+  const gallery = Array.isArray(product.media) ? product.media.map((m: any) => imageOf([m], localDemoGallery[0])).filter(Boolean) : [];
+  const isMockProduct = String(product?.id || '').startsWith('mock-');
+  const galleryImages = gallery.length > 1 ? gallery : (mockProduct || isMockProduct ? localDemoGallery : [images[0]]);
   const variant = product.variants?.find((v: any) => v.isAvailable !== false) || product.variants?.[0];
 
   return (
@@ -55,9 +58,9 @@ export default function Product() {
             {language === 'ar' ? 'الرئيسية / المتجر' : 'Home / Shop'} / {localized(product.name, language)}
           </div>
         </section>
-        <section className="w-full px-5 md:px-8 py-7 md:py-10 lg:py-14">
+        <section className="w-full px-5 md:px-8 py-6 md:py-8 lg:py-10">
           <div className="grid lg:grid-cols-[minmax(0,1.06fr)_minmax(420px,.94fr)] gap-8 xl:gap-16 max-w-[1580px] mx-auto">
-            <Gallery images={gallery.length ? gallery : [images[0]]} />
+            <Gallery images={galleryImages} />
             <ProductDetailsSection product={product} variant={variant} />
           </div>
         </section>

@@ -40,6 +40,7 @@ export default function ProductCard({ product }: { product: any }) {
   const variants = Array.isArray(product.variants) ? product.variants.filter((v: any) => v?.isAvailable !== false) : [];
   const firstVariant = variants[0] || product.variants?.[0] || {};
   const price = firstVariant.price ?? firstVariant.unitPrice ?? 99;
+  const sizes = Array.from(new Set(variants.map((variant: any) => variant.attributes?.find((a: any) => String(a.name).toLowerCase() === 'size')?.value).filter(Boolean).map(String)));
   const colors = Array.from(
     new Map(
       variants
@@ -74,20 +75,22 @@ export default function ProductCard({ product }: { product: any }) {
         <div className="min-w-0">
           <h3 className="text-[12px] sm:text-sm font-medium truncate">{localized(product.name, language)}</h3>
           <p className="text-[12px] sm:text-sm mt-1.5 sm:mt-2">{money(price, 'EGP')}</p>
-          {!!colors.length && (
-            <div className="flex items-center gap-1.5 mt-3" aria-label={t('common.chooseColor')}>
-              {colors.slice(0, 6).map((color: any) => (
-                <span
-                  key={String(color)}
-                  title={String(color)}
-                  aria-label={String(color)}
-                  className="w-3.5 h-3.5 rounded-full border border-black/15 ring-1 ring-white"
-                  style={{ backgroundColor: colorToCss(color) }}
-                />
-              ))}
-              {colors.length > 6 && <span className="text-[9px] text-muted ml-1">+{colors.length - 6}</span>}
-            </div>
-          )}
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+            {!!colors.length && (
+              <div className="flex items-center gap-1.5" aria-label={t('common.chooseColor')}>
+                {colors.slice(0, 6).map((color: any) => (
+                  <span
+                    key={String(color)}
+                    title={String(color)}
+                    aria-label={String(color)}
+                    className="w-3.5 h-3.5 rounded-full border border-black/15 ring-1 ring-white"
+                    style={{ backgroundColor: colorToCss(color) }}
+                  />
+                ))}
+                {colors.length > 6 && <span className="text-[9px] text-muted">+{colors.length - 6}</span>}
+              </div>
+            )}
+          </div>
         </div>
         <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition shrink-0" size={18} />
       </div>
