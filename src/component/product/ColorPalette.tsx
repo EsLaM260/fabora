@@ -12,7 +12,7 @@ export default function ColorPalette({colors,selected,onChange}:{colors:string[]
         <p className="text-[10px] uppercase tracking-[.18em] text-muted">01 / {t('common.chooseColor')}</p>
         <p className="text-sm mt-1">{selected ? <>{t('common.color')}: <span className="font-medium">{selected}</span></> : t('common.selectColor')}</p>
       </div>
-      <span className="text-[10px] uppercase tracking-[.16em] text-muted">{colors.length} {t('common.availableColor', { count: colors.length })}</span>
+      <span className="text-[10px] uppercase tracking-[.16em] text-muted">{t('common.availableColors', { count: colors.length })}</span>
     </div>
     <div className="flex flex-wrap items-center gap-4">
       {colors.map(color=>{

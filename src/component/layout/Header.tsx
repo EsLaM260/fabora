@@ -93,7 +93,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ease-out ${isHome ? '-mb-20' : ''} ${headerSurface} ${textClass}`}
+      className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300 ease-out ${isHome ? '-mb-20' : ''} ${headerSurface} ${textClass}`}
     >
       <div className="w-full h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 md:px-8 animate-header-drop">
         <div className="min-w-0">
@@ -138,7 +138,7 @@ export default function Header() {
                       to={`/category/${category.slug}`}
                       className="block px-3 py-2 text-[10px] uppercase tracking-[.16em] font-semibold hover:bg-ink hover:text-white"
                     >
-                      View {category.name.en}
+                      {t('common.view')} {category.name[language] || category.name.en}
                     </Link>
                     {category.children.map((child) => (
                       <Link
@@ -209,7 +209,7 @@ export default function Header() {
               </form>
             </div>
           </div>
-          <button className="p-2 transition-transform duration-200 hover:scale-110" onClick={() => nav('/login')} aria-label="Account">
+          <button className="p-2 transition-transform duration-200 hover:scale-110" onClick={() => nav('/login')} aria-label={t('common.account')}>
             <UserRound size={18} />
           </button>
           <button className="p-2 relative transition-transform duration-200 hover:scale-110" onClick={() => setCartOpen((value) => !value)} aria-label={t('cart.bag')} aria-expanded={cartOpen}>

@@ -55,7 +55,7 @@ export default function CheckoutFormSection({ disabled = false }: { disabled?: b
     <form onSubmit={handleSubmit(submit)} className="space-y-12">
       <CheckoutSection icon={<Mail size={17} />} eyebrow="01" title={t('checkout.contact')}>
         <div className="space-y-5">
-          <CheckoutInput {...register('email')} label={t('checkout.email')} type="email" autoComplete="email" placeholder="you@example.com" error={errorKey('email', 'emailError')} />
+          <CheckoutInput {...register('email')} label={t('checkout.email')} type="email" autoComplete="email" placeholder={t('checkout.emailPlaceholder')} error={errorKey('email', 'emailError')} />
           <CheckboxField register={register} name="emailOffers" label={t('checkout.emailOffers')} />
         </div>
       </CheckoutSection>
@@ -63,7 +63,7 @@ export default function CheckoutFormSection({ disabled = false }: { disabled?: b
       <CheckoutSection icon={<MapPin size={17} />} eyebrow="02" title={t('checkout.deliveryAddress')}>
         <div className="grid sm:grid-cols-2 gap-5">
           <CheckoutSelect {...register('country')} label={t('checkout.country')} autoComplete="country" error={errorKey('country', 'countryError')} as="select">
-            <option value="EG">Egypt</option><option value="AE">United Arab Emirates</option>
+            <option value="EG">{t('checkout.countries.egypt')}</option><option value="AE">{t('checkout.countries.uae')}</option>
           </CheckoutSelect>
           <div className="hidden sm:block" />
           <CheckoutInput {...register('firstName')} label={t('checkout.firstName')} autoComplete="given-name" placeholder={t('checkout.firstName')} error={errorKey('firstName', 'firstNameError')} />

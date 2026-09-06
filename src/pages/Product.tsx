@@ -6,12 +6,14 @@ import { getProduct } from '../api/contracts';
 import { mockProducts, images } from '../utils/mockData';
 import { imageOf, localized } from '../utils/format';
 import { useApp } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 import ProductDetailsSection from '../component/product/ProductDetailsSection';
 import RelatedProductsSection from '../component/product/RelatedProductsSection';
 
 export default function Product() {
   const { slug = '' } = useParams();
   const { language } = useApp();
+  const { t } = useTranslation();
   const q = useQuery({ queryKey: ['product', slug], queryFn: () => getProduct(slug), retry: false });
   const mockProduct = mockProducts.find((item) => item.slug === slug);
   const product = q.data || mockProduct;
@@ -19,9 +21,9 @@ export default function Product() {
   if (q.isLoading && !product) {
     return (
       <>
-        <Seo title="fabora" />
+        <Seo title={t('common.product')} />
         <main className="min-h-[60vh] grid place-items-center px-6">
-          <p className="text-[10px] uppercase tracking-[.18em] text-muted">Loading…</p>
+          <p className="text-[10px] uppercase tracking-[.18em] text-muted">{t('common.loading')}</p>
         </main>
       </>
     );
@@ -30,13 +32,13 @@ export default function Product() {
   if (!product) {
     return (
       <>
-        <Seo title="Product not found" />
+        <Seo title={t('product.notFound')} />
         <main className="min-h-[60vh] grid place-items-center px-6 text-center">
           <div>
             <p className="text-[10px] uppercase tracking-[.18em] text-muted mb-3">fabora</p>
-            <h1 className="serif text-4xl">Product not found</h1>
-            <p className="text-sm text-muted mt-3">This product is unavailable or the link is incorrect.</p>
-            <Link to="/shop" className="inline-flex mt-7 bg-ink text-white px-6 py-3 text-[10px] uppercase tracking-[.16em]">Back to shop</Link>
+            <h1 className="serif text-4xl">{t('product.notFound')}</h1>
+            <p className="text-sm text-muted mt-3">{t('product.notFoundText')}</p>
+            <Link to="/shop" className="inline-flex mt-7 bg-ink text-white px-6 py-3 text-[10px] uppercase tracking-[.16em]">{t('common.backToShop')}</Link>
           </div>
         </main>
       </>
@@ -55,7 +57,7 @@ export default function Product() {
       <main key={`${slug}-${language}`}>
         <section className="w-full border-b thin-border">
           <div className="px-5 md:px-8 py-4 text-[10px] uppercase tracking-[.15em] text-muted">
-            {language === 'ar' ? 'الرئيسية / المتجر' : 'Home / Shop'} / {localized(product.name, language)}
+            {t('common.home')} / {t('common.shop')} / {localized(product.name, language)}
           </div>
         </section>
         <section className="w-full px-5 md:px-8 py-6 md:py-8 lg:py-10">

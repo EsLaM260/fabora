@@ -40,7 +40,7 @@ export default function MiniCart({
             <div className="py-16 text-center">
               <p className="serif text-2xl">{t('cart.empty')}</p>
               <Link to="/shop" onClick={onClose} className="inline-block mt-5 text-[10px] uppercase tracking-[.18em] underline underline-offset-4">
-                Continue shopping
+                {t('common.continueShopping')}
               </Link>
             </div>
           ) : (
@@ -55,7 +55,7 @@ export default function MiniCart({
                     <img src={item.imageUrl || item.image || '/asset/images/ui-reference.png'} alt={name} className="w-[72px] aspect-[3/4] object-cover bg-[#ece8e2]" />
                     <div className="min-w-0">
                       <p className="text-sm font-medium truncate">{name}</p>
-                      <p className="text-xs text-muted mt-1">{item.color || 'Color selected'}{item.size ? ` · ${item.size}` : ''}</p>
+                      <p className="text-xs text-muted mt-1">{item.color || t('common.colorSelected')}{item.size ? ` · ${item.size}` : ''}</p>
                       <div className="flex items-center border thin-border w-fit mt-3 h-8">
                         <button type="button" onClick={() => onChange(id, Math.max(1, quantity - 1))} className="px-2.5" aria-label={t('common.decrease')}><Minus size={11} /></button>
                         <span className="w-7 text-center text-[11px]">{quantity}</span>
@@ -80,10 +80,10 @@ export default function MiniCart({
               <strong>{money(total, 'EGP')}</strong>
             </div>
             <Link to="/cart" onClick={onClose} className="h-12 bg-ink text-white flex items-center justify-center text-[10px] uppercase tracking-[.18em]">
-              View full cart
+              {t('cart.viewFull')}
             </Link>
             <Link to="/shop" onClick={onClose} className="mt-3 h-11 border thin-border flex items-center justify-center text-[10px] uppercase tracking-[.18em]">
-              Continue shopping
+              {t('common.continueShopping')}
             </Link>
           </div>
         )}

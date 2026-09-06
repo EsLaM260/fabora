@@ -12,8 +12,8 @@ export default function Gallery({ images }: { images: string[] }) {
   const activeIndex = Math.min(active, safeImages.length - 1);
 
   return (
-    <div className="lg:pr-2">
-      <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[92px_1fr] lg:gap-4 lg:min-h-[680px]">
+    <div className="w-full min-w-0 lg:pr-2">
+      <div className="flex min-w-0 flex-col gap-3 lg:grid lg:grid-cols-[92px_minmax(0,1fr)] lg:gap-4 lg:min-h-[680px]">
 
         {/* Mobile thumbnails */}
         <div
@@ -21,8 +21,10 @@ export default function Gallery({ images }: { images: string[] }) {
             order-2
             flex
             w-full
+            min-w-0
             gap-3
             overflow-x-auto
+            overscroll-x-contain
             pb-1
             no-scrollbar
             snap-x
