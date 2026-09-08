@@ -5,11 +5,9 @@ export default function Gallery({ images }: { images: string[] }) {
   const { t } = useTranslation();
   const [active, setActive] = useState(0);
 
-  const safeImages = images.length
-    ? images
-    : ['/asset/images/ui-reference.png'];
+  const safeImages = images.filter(Boolean);
 
-  const activeIndex = Math.min(active, safeImages.length - 1);
+  const activeIndex = safeImages.length ? Math.min(active, safeImages.length - 1) : 0;
 
   return (
     <div className="w-full min-w-0 lg:pr-2">
@@ -114,17 +112,17 @@ export default function Gallery({ images }: { images: string[] }) {
             lg:min-h-[680px]
           "
         >
-          <img
-            src={safeImages[activeIndex]}
-            alt={t('common.product')}
-            className="
-              w-full
-              h-full
-              object-cover
-              transition-opacity
-              duration-500
-            "
-          />
+          {safeImages.length ? (
+            <img
+              src={safeImages[activeIndex]}
+              alt={t('common.product')}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center text-[10px] uppercase tracking-[.16em] text-muted bg-[#eeebe6]">
+              {t('common.noImage')}
+            </div>
+          )}
 
           <span
             className="

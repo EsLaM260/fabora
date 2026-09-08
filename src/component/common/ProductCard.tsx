@@ -33,8 +33,8 @@ function colorToCss(value: unknown) {
 }
 
 export default function ProductCard({ product }: { product: any }) {
-  const [loaded, setLoaded] = useState(true);
-  const [imageSrc, setImageSrc] = useState(() => imageOf(product.media, '/asset/images/dummy-products/product-01.svg'));
+  const [loaded, setLoaded] = useState(false);
+  const imageSrc = imageOf(product.media, '');
   const { t, i18n } = useTranslation();
   const language = i18n.language === 'ar' ? 'ar' : 'en';
   const variants = Array.isArray(product.variants) ? product.variants.filter((v: any) => v?.isAvailable !== false) : [];
@@ -53,17 +53,15 @@ export default function ProductCard({ product }: { product: any }) {
   return (
     <Link to={`/product/${product.slug}`} className="group block motion-card">
       <div className="relative aspect-[3/4] overflow-hidden bg-[#ebe9e5]">
-        <img
-          src={imageSrc}
-          onLoad={() => setLoaded(true)}
-          onError={() => {
-            if (!imageSrc.startsWith('/asset/images/dummy-products/')) {
-              setImageSrc('/asset/images/dummy-products/product-01.svg');
-            }
-          }}
-          alt={localized(product.name, language)}
-          className={`w-full h-full object-cover transition duration-700 group-hover:scale-[1.03] ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        />
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            onLoad={() => setLoaded(true)}
+            onError={() => setLoaded(false)}
+            alt={localized(product.name, language)}
+            className={`w-full h-full object-cover transition duration-700 group-hover:scale-[1.03] ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        ) : null}
         {!loaded && <div className="absolute inset-0 image-placeholder z-0" />}
         {/* <button onClick={(e) => e.preventDefault()} className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 backdrop-blur transition-transform hover:scale-105" aria-label={t('common.wishlist')}>
           <Heart size={15} />

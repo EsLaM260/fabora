@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Globe, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { STORE_CATEGORIES } from '../../utils/categories';
+import { getCategories } from '../../api/contracts';
 import { getCart, removeCartItem, updateCartItem } from '../../api/contracts';
 import { useApp } from '../../context/AppContext';
 import MobileMenu from './MobileMenu';
@@ -22,6 +22,8 @@ export default function Header() {
   const location = useLocation();
   const { language, setLanguage, country, setCountry, cartCount, setCartCount } = useApp();
   const queryClient = useQueryClient();
+  const categoriesQuery = useQuery({ queryKey: ['categories'], queryFn: getCategories, retry: false });
+  const categories = categoriesQuery.data || [];
   const [open, setOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [search, setSearch] = useState('');
@@ -95,10 +97,10 @@ export default function Header() {
   const textClass = useLightHeader ? 'text-ink md:text-white' : 'text-ink';
   const mutedTextClass = useLightHeader ? 'text-ink/75 md:text-white/75' : 'text-ink/75';
 
- const headerSurface =
-  isHome && !scrolled && !headerHovered
-    ? 'bg-transparent '
-    : 'bg-white thin-border shadow-[0_8px_30px_rgba(0,0,0,.05)]';
+  const headerSurface =
+    isHome && !scrolled && !headerHovered
+      ? 'bg-transparent '
+      : 'bg-white thin-border shadow-[0_8px_30px_rgba(0,0,0,.05)]';
 
 
 
@@ -122,7 +124,7 @@ export default function Header() {
               {t('nav.shop')}
             </Link>
 
-            {STORE_CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <div
                 key={category.slug}
                 className="relative"
@@ -147,7 +149,7 @@ export default function Header() {
                 >
                   <div className="w-52 border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,.12)] p-2 rounded-xl normal-case tracking-normal backdrop-blur-sm">
                     <Link
-                      to={`/shop?categorySlug=${category.slug}`}
+                      to={`/category/${category.slug}`}
                       className="block px-3 py-2.5 text-xs  rounded-lg hover:bg-ink hover:text-white transition-colors"
                     >
                       {t('common.view')} {category.name[language] || category.name.en}

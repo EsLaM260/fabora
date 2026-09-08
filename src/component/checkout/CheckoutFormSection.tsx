@@ -338,7 +338,21 @@ export default function CheckoutFormSection({
             )}
           />
 
-          <div className="sm:col-span-2">
+          <CheckoutInput
+            {...register('phone')}
+            label={t('checkout.phone')}
+            autoComplete="tel"
+            inputMode="tel"
+            placeholder={t(
+              'checkout.phonePlaceholder'
+            )}
+            error={errorKey(
+              'phone',
+              'phoneError'
+            )}
+          />
+
+          {/* <div className="sm:col-span-2"> */}
             <CheckoutInput
               {...register('address')}
               label={t('checkout.address')}
@@ -349,9 +363,9 @@ export default function CheckoutFormSection({
                 'addressError'
               )}
             />
-          </div>
+          {/* </div> */}
 
-          <div className="sm:col-span-2">
+          {/* <div className="sm:col-span-2"> */}
             <CheckoutInput
               {...register('apartment')}
               label={t('checkout.apartment')}
@@ -360,7 +374,7 @@ export default function CheckoutFormSection({
                 'checkout.apartmentPlaceholder'
               )}
             />
-          </div>
+          {/* </div> */}
 
           <CheckoutSelect
             {...register('country')}
@@ -418,19 +432,7 @@ export default function CheckoutFormSection({
             )}
           />
 
-          <CheckoutInput
-            {...register('phone')}
-            label={t('checkout.phone')}
-            autoComplete="tel"
-            inputMode="tel"
-            placeholder={t(
-              'checkout.phonePlaceholder'
-            )}
-            error={errorKey(
-              'phone',
-              'phoneError'
-            )}
-          />
+
         </div>
 
         <div className="mt-6 space-y-4 pt-5 border-t thin-border">
@@ -648,8 +650,8 @@ function PaymentOption({
   return (
     <label
       className={`border thin-border p-5 flex items-start gap-4 cursor-pointer bg-white transition-colors rounded-xl ${selected
-          ? 'border-ink shadow-sm'
-          : 'hover:border-ink/50'
+        ? 'border-ink shadow-sm'
+        : 'hover:border-ink/50'
         }`}
     >
       <input

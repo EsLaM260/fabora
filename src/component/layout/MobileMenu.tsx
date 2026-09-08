@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { STORE_CATEGORIES } from '../../utils/categories';
+import { useQuery } from '@tanstack/react-query';
+import { getCategories } from '../../api/contracts';
 type Language = 'en' | 'ar';
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 
 export default function MobileMenu({ open, onClose, language }: Props) {
   const { t } = useTranslation();
+  const categoriesQuery = useQuery({ queryKey: ['categories'], queryFn: getCategories, retry: false });
+  const categories = categoriesQuery.data || [];
 
   if (!open) return null;
 
@@ -22,7 +25,7 @@ export default function MobileMenu({ open, onClose, language }: Props) {
           {t('nav.shop')}
         </Link>
 
-        {STORE_CATEGORIES.map((category) => (
+        {categories.map((category) => (
           <div key={category.slug} className="border-t thin-border pt-3 mt-1">
             <Link
               onClick={onClose}

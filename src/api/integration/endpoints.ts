@@ -1,0 +1,17 @@
+export const endpoints = {
+  catalog: '/v1/products/catalog',
+  product: (slug: string) => `/v1/products/slug/${encodeURIComponent(slug)}`,
+  categories: '/v1/categories',
+  category: (slug: string) => `/v1/categories/${encodeURIComponent(slug)}`,
+  cart: '/v1/cart',
+  addCartItem: '/v1/cart/items',
+  updateCartItem: (variantId: string) => `/v1/cart/items/${encodeURIComponent(variantId)}`,
+  removeCartItem: (variantId: string) => `/v1/cart/items/${encodeURIComponent(variantId)}`,
+  discount: '/v1/cart/discount',
+  restockSubscribe: '/v1/restock/subscribe',
+  register: '/v1/auth/register',
+  login: '/v1/auth/login',
+  forgotPassword: '/v1/auth/forgot-password',
+  resetPassword: '/v1/auth/reset-password',
+  countries: '/v1/countries/my-country/governorates',
+} as const;
