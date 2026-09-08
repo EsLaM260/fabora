@@ -74,7 +74,7 @@ export default function Header() {
   });
 
   const isHome = location.pathname === '/';
-  
+
   const useLightHeader = isHome && !scrolled && !headerHovered;
 
   useEffect(() => {
@@ -147,8 +147,8 @@ export default function Header() {
                 >
                   <div className="w-52 border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,.12)] p-2 rounded-xl normal-case tracking-normal backdrop-blur-sm">
                     <Link
-                      to={`/category/${category.slug}`}
-                      className="block px-3 py-2.5 text-[10px] uppercase tracking-[.16em] font-semibold rounded-lg hover:bg-ink hover:text-white transition-colors"
+                      to={`/shop?categorySlug=${category.slug}`}
+                      className="block px-3 py-2.5 text-xs  rounded-lg hover:bg-ink hover:text-white transition-colors"
                     >
                       {t('common.view')} {category.name[language] || category.name.en}
                     </Link>
@@ -156,7 +156,7 @@ export default function Header() {
                       <Link
                         key={child.slug}
                         to={`/shop?categorySlug=${category.slug}&subcategorySlug=${child.slug}`}
-                        className="block px-3 py-2 text-xs rounded-lg hover:bg-black/5 transition-colors"
+                        className="block px-3 py-2.5 text-xs rounded-lg hover:bg-ink hover:text-white transition-colors"
                       >
                         {child.name[language] || child.name.en}
                       </Link>
