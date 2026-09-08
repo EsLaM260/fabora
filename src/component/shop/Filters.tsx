@@ -13,7 +13,7 @@ export default function Filters({ open, onClose, query, setQuery }: FiltersProps
   const isArabic = i18n.resolvedLanguage === 'ar';
 
   return (
-    <div className={`fixed inset-0 z-[60] ${open ? 'pointer-events-auto' : 'pointer-events-none'}`} aria-hidden={!open}>
+    <div className={`fixed inset-0 z-[200] ${open ? 'pointer-events-auto' : 'pointer-events-none'}`} aria-hidden={!open}>
       <button
         type="button"
         aria-label={t('common.close')}

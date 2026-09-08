@@ -1,23 +1,72 @@
-
 import { useEffect } from 'react';
+
 import {
   useForm,
   UseFormRegister,
 } from 'react-hook-form';
+
 import { z } from 'zod';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import {
   CreditCard,
   MapPin,
   Mail,
 } from 'lucide-react';
+
 import Button from '../common/Button';
+
 import {
   CheckoutInput,
   CheckoutSelect,
 } from './CheckoutField';
+
 import { toast } from '../common/Toast';
+
 import { useTranslation } from 'react-i18next';
+
+const citiesByCountry = {
+  EG: [
+    { value: 'cairo', label: 'Cairo' },
+    { value: 'giza', label: 'Giza' },
+    { value: 'alexandria', label: 'Alexandria' },
+    { value: 'qalyubia', label: 'Qalyubia' },
+    { value: 'dakahlia', label: 'Dakahlia' },
+    { value: 'sharqia', label: 'Sharqia' },
+    { value: 'gharbia', label: 'Gharbia' },
+    { value: 'monufia', label: 'Monufia' },
+    { value: 'beheira', label: 'Beheira' },
+    { value: 'kafr-el-sheikh', label: 'Kafr El Sheikh' },
+    { value: 'damietta', label: 'Damietta' },
+    { value: 'port-said', label: 'Port Said' },
+    { value: 'ismailia', label: 'Ismailia' },
+    { value: 'suez', label: 'Suez' },
+    { value: 'fayoum', label: 'Fayoum' },
+    { value: 'beni-suef', label: 'Beni Suef' },
+    { value: 'minya', label: 'Minya' },
+    { value: 'asyut', label: 'Asyut' },
+    { value: 'sohag', label: 'Sohag' },
+    { value: 'qena', label: 'Qena' },
+    { value: 'luxor', label: 'Luxor' },
+    { value: 'aswan', label: 'Aswan' },
+    { value: 'red-sea', label: 'Red Sea' },
+    { value: 'new-valley', label: 'New Valley' },
+    { value: 'north-sinai', label: 'North Sinai' },
+    { value: 'south-sinai', label: 'South Sinai' },
+    { value: 'matrouh', label: 'Matrouh' },
+  ],
+
+  AE: [
+    { value: 'abu-dhabi', label: 'Abu Dhabi' },
+    { value: 'dubai', label: 'Dubai' },
+    { value: 'sharjah', label: 'Sharjah' },
+    { value: 'ajman', label: 'Ajman' },
+    { value: 'umm-al-quwain', label: 'Umm Al Quwain' },
+    { value: 'ras-al-khaimah', label: 'Ras Al Khaimah' },
+    { value: 'fujairah', label: 'Fujairah' },
+  ],
+} as const;
 
 const schema = z
   .object({
@@ -26,6 +75,14 @@ const schema = z
     emailOffers: z.boolean().default(false),
 
     country: z.string().min(1),
+
+    phone: z
+      .string()
+      .trim()
+      .regex(
+        /^\+?[0-9 ()-]{8,20}$/,
+        'phone'
+      ),
 
     firstName: z.string().trim().min(2),
 
@@ -104,24 +161,42 @@ const schema = z
   });
 
 type CheckoutInput = z.input<typeof schema>;
+
 type CheckoutValues = z.output<typeof schema>;
 
 const initialValues: CheckoutInput = {
   email: '',
+
   emailOffers: false,
+
   country: 'EG',
+
+  phone: '',
+
   firstName: '',
+
   lastName: '',
+
   address: '',
+
   apartment: '',
+
   city: '',
+
   postalCode: '',
+
   saveInfo: false,
+
   smsOffers: false,
+
   payment: 'card',
+
   cardholderName: '',
+
   cardNumber: '',
+
   cardExpiry: '',
+
   cardCvc: '',
 };
 
@@ -134,12 +209,18 @@ export default function CheckoutFormSection({
 
   const {
     register,
+
     handleSubmit,
+
     watch,
+
+    setValue,
+
     formState: {
       errors,
       isSubmitting,
     },
+
     clearErrors,
   } = useForm<
     CheckoutInput,
@@ -147,11 +228,24 @@ export default function CheckoutFormSection({
     CheckoutValues
   >({
     resolver: zodResolver(schema),
+
     defaultValues: initialValues,
+
     mode: 'onBlur',
   });
 
   const payment = watch('payment');
+
+  const country = watch('country');
+
+  const availableCities =
+    citiesByCountry[
+    country as keyof typeof citiesByCountry
+    ] ?? [];
+
+  useEffect(() => {
+    setValue('city', '');
+  }, [country, setValue]);
 
   useEffect(() => {
     if (payment === 'cash') {
@@ -221,26 +315,6 @@ export default function CheckoutFormSection({
         title={t('checkout.deliveryAddress')}
       >
         <div className="grid sm:grid-cols-2 gap-5">
-          <CheckoutSelect
-            {...register('country')}
-            label={t('checkout.country')}
-            autoComplete="country"
-            error={errorKey(
-              'country',
-              'countryError'
-            )}
-            as="select"
-          >
-            <option value="EG">
-              {t('checkout.countries.egypt')}
-            </option>
-
-            <option value="AE">
-              {t('checkout.countries.uae')}
-            </option>
-          </CheckoutSelect>
-
-          <div className="hidden sm:block" />
 
           <CheckoutInput
             {...register('firstName')}
@@ -288,16 +362,50 @@ export default function CheckoutFormSection({
             />
           </div>
 
-          <CheckoutInput
+          <CheckoutSelect
+            {...register('country')}
+            label={t('checkout.country')}
+            autoComplete="country"
+            error={errorKey(
+              'country',
+              'countryError'
+            )}
+            as="select"
+          >
+            <option value="EG">
+              {t('checkout.countries.egypt')}
+            </option>
+
+            <option value="AE">
+              {t('checkout.countries.uae')}
+            </option>
+          </CheckoutSelect>
+
+          <CheckoutSelect
             {...register('city')}
             label={t('checkout.city')}
             autoComplete="address-level2"
-            placeholder={t('checkout.city')}
             error={errorKey(
               'city',
               'cityError'
             )}
-          />
+            as="select"
+          >
+            <option value="">
+              {t('checkout.selectCity')}
+            </option>
+
+            {availableCities.map(
+              (cityOption) => (
+                <option
+                  key={cityOption.value}
+                  value={cityOption.value}
+                >
+                  {cityOption.label}
+                </option>
+              )
+            )}
+          </CheckoutSelect>
 
           <CheckoutInput
             {...register('postalCode')}
@@ -307,6 +415,20 @@ export default function CheckoutFormSection({
             error={errorKey(
               'postalCode',
               'postalError'
+            )}
+          />
+
+          <CheckoutInput
+            {...register('phone')}
+            label={t('checkout.phone')}
+            autoComplete="tel"
+            inputMode="tel"
+            placeholder={t(
+              'checkout.phonePlaceholder'
+            )}
+            error={errorKey(
+              'phone',
+              'phoneError'
             )}
           />
         </div>
@@ -343,6 +465,7 @@ export default function CheckoutFormSection({
           {payment === 'card' && (
             <div className="border-x border-b thin-border bg-[#faf8f4] p-5 md:p-6 -mt-3 rounded-b-xl">
               <div className="grid gap-5">
+
                 <CheckoutInput
                   {...register('cardholderName')}
                   label={t(
@@ -355,28 +478,31 @@ export default function CheckoutFormSection({
                   error={
                     errors.cardholderName
                       ? t(
-                          'checkout.errors.cardholderError'
-                        )
+                        'checkout.errors.cardholderError'
+                      )
                       : undefined
                   }
                 />
 
                 <CheckoutInput
                   {...register('cardNumber')}
-                  label={t('checkout.cardNumber')}
+                  label={t(
+                    'checkout.cardNumber'
+                  )}
                   inputMode="numeric"
                   autoComplete="cc-number"
                   placeholder="•••• •••• •••• ••••"
                   error={
                     errors.cardNumber
                       ? t(
-                          'checkout.errors.cardNumberError'
-                        )
+                        'checkout.errors.cardNumberError'
+                      )
                       : undefined
                   }
                 />
 
                 <div className="grid grid-cols-2 gap-5">
+
                   <CheckoutInput
                     {...register('cardExpiry')}
                     label={t(
@@ -387,26 +513,29 @@ export default function CheckoutFormSection({
                     error={
                       errors.cardExpiry
                         ? t(
-                            'checkout.errors.cardExpiryError'
-                          )
+                          'checkout.errors.cardExpiryError'
+                        )
                         : undefined
                     }
                   />
 
                   <CheckoutInput
                     {...register('cardCvc')}
-                    label={t('checkout.cardCvc')}
+                    label={t(
+                      'checkout.cardCvc'
+                    )}
                     inputMode="numeric"
                     autoComplete="cc-csc"
                     placeholder="•••"
                     error={
                       errors.cardCvc
                         ? t(
-                            'checkout.errors.cardCvcError'
-                          )
+                          'checkout.errors.cardCvcError'
+                        )
                         : undefined
                     }
                   />
+
                 </div>
               </div>
             </div>
@@ -414,8 +543,12 @@ export default function CheckoutFormSection({
 
           <PaymentOption
             value="cash"
-            title={t('checkout.payOnDelivery')}
-            description={t('checkout.codText')}
+            title={t(
+              'checkout.payOnDelivery'
+            )}
+            description={t(
+              'checkout.codText'
+            )}
             register={register}
             selected={payment === 'cash'}
           />
@@ -426,7 +559,9 @@ export default function CheckoutFormSection({
         <Button
           type="submit"
           className="w-full h-14"
-          disabled={disabled || isSubmitting}
+          disabled={
+            disabled || isSubmitting
+          }
         >
           {isSubmitting
             ? t('checkout.processing')
@@ -512,11 +647,10 @@ function PaymentOption({
 }) {
   return (
     <label
-      className={`border thin-border p-5 flex items-start gap-4 cursor-pointer bg-white transition-colors rounded-xl ${
-        selected
+      className={`border thin-border p-5 flex items-start gap-4 cursor-pointer bg-white transition-colors rounded-xl ${selected
           ? 'border-ink shadow-sm'
           : 'hover:border-ink/50'
-      }`}
+        }`}
     >
       <input
         {...register('payment')}
@@ -537,3 +671,4 @@ function PaymentOption({
     </label>
   );
 }
+

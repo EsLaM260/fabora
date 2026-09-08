@@ -26,6 +26,7 @@ export default function Header() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [headerHovered, setHeaderHovered] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -43,6 +44,12 @@ export default function Header() {
     setCartOpen(false);
     setSearchOpen(false);
   }, [location.pathname, location.search]);
+
+  useEffect(() => {
+    const openCart = () => setCartOpen(true);
+    window.addEventListener('fabora:open-cart', openCart);
+    return () => window.removeEventListener('fabora:open-cart', openCart);
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') setCartOpen(false); };
@@ -67,7 +74,8 @@ export default function Header() {
   });
 
   const isHome = location.pathname === '/';
-  const useLightHeader = isHome && !scrolled;
+  
+  const useLightHeader = isHome && !scrolled && !headerHovered;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -87,15 +95,20 @@ export default function Header() {
   const textClass = useLightHeader ? 'text-ink md:text-white' : 'text-ink';
   const mutedTextClass = useLightHeader ? 'text-ink/75 md:text-white/75' : 'text-ink/75';
 
-  const headerSurface = isHome && !scrolled
-    ? 'bg-transparent'
-    : 'bg-white border-b thin-border shadow-[0_8px_30px_rgba(0,0,0,.05)]';
+ const headerSurface =
+  isHome && !scrolled && !headerHovered
+    ? 'bg-transparent '
+    : 'bg-white thin-border shadow-[0_8px_30px_rgba(0,0,0,.05)]';
+
+
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300 ease-out ${isHome ? '-mb-20' : ''} ${headerSurface} ${textClass}`}
+      onMouseEnter={() => setHeaderHovered(true)}
+      onMouseLeave={() => setHeaderHovered(false)}
+      className={`relative sticky top-0 z-[100] isolate w-full transition-[background-color,border-color,box-shadow] duration-300 ease-out  ${isHome ? '-mb-16' : ''} ${headerSurface} ${textClass}`}
     >
-      <div className="w-full h-20 grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 md:px-8 animate-header-drop">
+      <div className="w-full h-16 grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 md:px-8 animate-header-drop">
         <div className="min-w-0">
           <button className={`lg:hidden transition-transform duration-300 ${open ? 'rotate-90' : ''}`} onClick={() => setOpen(!open)} aria-label={t('common.filter')}>
             {open ? <X /> : <Menu />}
@@ -127,16 +140,15 @@ export default function Header() {
                 </div>
 
                 <div
-                  className={`${
-                    openCategory === category.slug
-                      ? 'visible opacity-100 translate-y-0'
-                      : 'invisible opacity-0 -translate-y-1'
-                  } absolute left-1/2 -translate-x-1/2 top-full pt-4 transition-all duration-200`}
+                  className={`${openCategory === category.slug
+                    ? 'visible opacity-100 translate-y-0'
+                    : 'invisible opacity-0 -translate-y-1'
+                    } absolute left-1/2 z-[110] -translate-x-1/2 top-full pt-3 transition-all duration-300 ease-out`}
                 >
-                  <div className="w-44 border thin-border bg-white text-ink shadow-xl p-2 normal-case tracking-normal">
+                  <div className="w-52 border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,.12)] p-2 rounded-xl normal-case tracking-normal backdrop-blur-sm">
                     <Link
                       to={`/category/${category.slug}`}
-                      className="block px-3 py-2 text-[10px] uppercase tracking-[.16em] font-semibold hover:bg-ink hover:text-white"
+                      className="block px-3 py-2.5 text-[10px] uppercase tracking-[.16em] font-semibold rounded-lg hover:bg-ink hover:text-white transition-colors"
                     >
                       {t('common.view')} {category.name[language] || category.name.en}
                     </Link>
@@ -144,7 +156,7 @@ export default function Header() {
                       <Link
                         key={child.slug}
                         to={`/shop?categorySlug=${category.slug}&subcategorySlug=${child.slug}`}
-                        className="block px-3 py-2 text-xs hover:bg-black/5"
+                        className="block px-3 py-2 text-xs rounded-lg hover:bg-black/5 transition-colors"
                       >
                         {child.name[language] || child.name.en}
                       </Link>
@@ -190,7 +202,7 @@ export default function Header() {
             >
               <Search size={17} className={`transition-transform duration-300 ${searchOpen ? 'rotate-90' : ''}`} />
             </button>
-            <div className={`absolute right-0 top-full mt-3 origin-top-right transition-all duration-300 ${searchOpen ? 'visible opacity-100 translate-y-0 scale-100' : 'invisible opacity-0 -translate-y-2 scale-95 pointer-events-none'}`}>
+            <div className={`absolute right-0 z-[110] top-full mt-3 origin-top-right transition-all duration-300 ${searchOpen ? 'visible opacity-100 translate-y-0 scale-100' : 'invisible opacity-0 -translate-y-2 scale-95 pointer-events-none'}`}>
               <form
                 onSubmit={submit}
                 className="w-[290px] border thin-border bg-white p-2 shadow-[0_18px_50px_rgba(0,0,0,.12)] rounded-2xl"

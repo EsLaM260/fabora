@@ -15,7 +15,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-ink text-white mt-16">
+    <footer className="bg-ink text-white mt-4 md:mt-4">
       <div className="w-full px-5 md:px-8 py-12 grid md:grid-cols-4 gap-10">
         <div>
 <img

@@ -48,12 +48,7 @@ export default function MobileMenu({ open, onClose, language }: Props) {
           </div>
         ))}
 
-        <Link onClick={onClose} className="py-3" to="/shop?sortBy=sale">
-          {t('nav.sale')}
-        </Link>
-        <Link onClick={onClose} className="py-3" to="/about">
-          {t('nav.about')}
-        </Link>
+
       </div>
     </div>
   );

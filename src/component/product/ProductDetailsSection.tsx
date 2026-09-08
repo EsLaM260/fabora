@@ -31,6 +31,7 @@ import { addToCart } from '../../api/contracts';
 import { toast } from '../common/Toast';
 import { useApp } from '../../context/AppContext';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 function Accordion({
   title,
@@ -145,6 +146,22 @@ function uniqueStrings(values: unknown[]): string[] {
   return Array.from(new Set<string>(strings));
 }
 
+function getVariantStock(variant: any): number | null {
+  const candidates = [
+    variant?.stock,
+    variant?.stockQuantity,
+    variant?.inventory,
+    variant?.inventoryQuantity,
+    variant?.availableQuantity,
+    variant?.quantityAvailable,
+  ];
+  const numeric = candidates.find((value) => typeof value === 'number' && Number.isFinite(value));
+  if (typeof numeric === 'number') return Math.max(0, numeric);
+  if (variant?.isAvailable === false) return 0;
+  if (variant?.isAvailable === true) return 1;
+  return null;
+}
+
 export default function ProductDetailsSection({
   product,
   variant,
@@ -159,13 +176,10 @@ export default function ProductDetailsSection({
 
   const { setCartCount } = useApp();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-  const variants: any[] = Array.isArray(
-    product?.variants
-  )
-    ? product.variants.filter(
-        (v: any) => v?.isAvailable !== false
-      )
+  const variants: any[] = Array.isArray(product?.variants)
+    ? product.variants
     : [];
 
   const colors: string[] = uniqueStrings(
@@ -184,10 +198,7 @@ export default function ProductDetailsSection({
     getAttrString(variant, 'color') ??
     colors[0];
 
-  const initialSize =
-    getAttrString(variant, 'size') ??
-    sizes[0] ??
-    '';
+  const initialSize = '';
 
   const [selectedColor, setSelectedColor] =
     useState<string | undefined>(initialColor);
@@ -224,18 +235,10 @@ export default function ProductDetailsSection({
     }, [selectedColorVariants]);
 
   const selectedVariant = useMemo(() => {
-    if (!selectedColor || !size) {
-      return undefined;
-    }
-
-    const normalizedSize =
-      size.toLowerCase();
-
+    if (!selectedColor || !size) return undefined;
+    const normalizedSize = size.toLowerCase();
     return selectedColorVariants.find(
-      (v: any) =>
-        (
-          getAttrString(v, 'size') ?? ''
-        ).toLowerCase() === normalizedSize
+      (v: any) => (getAttrString(v, 'size') ?? '').toLowerCase() === normalizedSize
     );
   }, [
     selectedColor,
@@ -305,6 +308,7 @@ export default function ProductDetailsSection({
       );
 
       toast(t('product.added'));
+      window.dispatchEvent(new CustomEvent('fabora:open-cart'));
     },
 
     onError: () => {
@@ -312,18 +316,26 @@ export default function ProductDetailsSection({
     },
   });
 
-  const displayedSizes =
-    availableSizesForColor.length > 0
-      ? availableSizesForColor
-      : sizes.length > 0
-        ? sizes
-        : [
-            'XS',
-            'S',
-            'M',
-            'L',
-            'XL',
-          ];
+  const displayedSizes = sizes.length > 0 ? sizes : ['XS','S','M','L','XL'];
+
+  const sizeIsAvailable = (candidateSize: string) => {
+    const matching = selectedColorVariants.filter(
+      (v: any) => (getAttrString(v, 'size') ?? '').toLowerCase() === candidateSize.toLowerCase()
+    );
+    return matching.some((v: any) => {
+      const stock = getVariantStock(v);
+      return stock === null ? v?.isAvailable !== false : stock > 0;
+    });
+  };
+
+  const selectedStock = getVariantStock(selectedVariant);
+  const hasSelectedVariant = Boolean(selectedVariant?.id);
+  const colorIsAvailable = (color: string) =>
+    variants.some((v: any) => (getAttrString(v, 'color') ?? '').toLowerCase() === color.toLowerCase() && (() => {
+      const stock = getVariantStock(v);
+      return stock === null ? v?.isAvailable !== false : stock > 0;
+    })());
+  const outOfStock = hasSelectedVariant && selectedStock !== null && selectedStock <= 0;
 
   return (
     <section className="lg:sticky lg:top-28 self-start">
@@ -401,6 +413,7 @@ export default function ProductDetailsSection({
             colors={colors}
             selected={selectedColor}
             onChange={handleColorChange}
+            isAvailable={colorIsAvailable}
           />
         </div>
       )}
@@ -423,7 +436,33 @@ export default function ProductDetailsSection({
           sizes={displayedSizes}
           value={size}
           onChange={setSize}
+          isAvailable={sizeIsAvailable}
         />
+
+        <div className="mt-5 flex items-center justify-between gap-4 text-xs">
+          <span className={outOfStock ? 'text-red-700' : 'text-muted'}>
+            {outOfStock
+              ? t('product.outOfStock')
+              : selectedStock !== null
+                ? selectedStock <= 5
+                  ? t('product.lowStock', { count: selectedStock })
+                  : t('product.inStock')
+                : hasSelectedVariant
+                  ? t('product.inStock')
+                  : t('product.chooseVariant')}
+          </span>
+
+          {outOfStock && (
+            <label className="flex items-center gap-2 cursor-pointer text-[11px]">
+              <input
+                type="checkbox"
+                className="h-4 w-4 accent-black"
+                onChange={() => toast(t('product.notifySaved'))}
+              />
+              <span>{t('product.notifyMe')}</span>
+            </label>
+          )}
+        </div>
       </div>
 
       <div className="py-7">
@@ -465,7 +504,8 @@ export default function ProductDetailsSection({
             }
             disabled={
               mutation.isPending ||
-              !selectedVariant?.id
+              !selectedVariant?.id ||
+              outOfStock
             }
             className="h-14 bg-ink text-white flex-1 text-xs uppercase tracking-[.18em] transition-opacity hover:opacity-90 disabled:opacity-50"
           >

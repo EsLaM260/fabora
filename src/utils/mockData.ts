@@ -1,11 +1,11 @@
 export const images=['https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?auto=format&fit=crop&w=900&q=85','https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85','https://images.unsplash.com/photo-1496217590455-aa63a8350eea?auto=format&fit=crop&w=900&q=85','https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=85','https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85','https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85'];
 export const mockProducts=Array.from({length:12},(_,i)=>({id:`mock-${i+1}`,name:{en:['Linen Tailored Blazer','Soft Rib Knit Top','Wide Leg Trousers','Leather Shoulder Bag','Minimal Strappy Heel','Oversized Sunglasses','Silk Wrap Dress','Structured Cotton Shirt','Relaxed Wool Jacket','Sculpted Tank','Everyday Tote','Fluid Maxi Dress'][i]},slug:['linen-tailored-blazer','soft-rib-knit-top','wide-leg-trousers','leather-shoulder-bag','minimal-strappy-heel','oversized-sunglasses','silk-wrap-dress','structured-cotton-shirt','relaxed-wool-jacket','sculpted-tank','everyday-tote','fluid-maxi-dress'][i],description:{en:'A refined essential with a considered fit and effortless finish.'},status:'ACTIVE',categoryHierarchy:[[0,1,2,3,4,5,6,7,8,9,10,11].map((n)=>n%3===0?'kids':n%3===1?'women':'men')[i] as any, i%2===0?'top':'bottom'],availableCountryIds:[],sizeGuide:[],media:[{url:images[i%images.length]}],variants:[
-  {id:`variant-${i+1}-black-xs`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Black'},{name:'Size',value:'XS'}]},
-  {id:`variant-${i+1}-black-m`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Black'},{name:'Size',value:'M'}]},
-  {id:`variant-${i+1}-sand-s`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Sand'},{name:'Size',value:'S'}]},
-  {id:`variant-${i+1}-sand-l`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Sand'},{name:'Size',value:'L'}]},
-  {id:`variant-${i+1}-ivory-m`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Ivory'},{name:'Size',value:'M'}]},
-  {id:`variant-${i+1}-chocolate-xl`,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Chocolate'},{name:'Size',value:'XL'}]},
+  {id:`variant-${i+1}-black-xs`,stock:4,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Black'},{name:'Size',value:'XS'}]},
+  {id:`variant-${i+1}-black-m`,stock:0,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Black'},{name:'Size',value:'M'}]},
+  {id:`variant-${i+1}-sand-s`,stock:7,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Sand'},{name:'Size',value:'S'}]},
+  {id:`variant-${i+1}-sand-l`,stock:0,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Sand'},{name:'Size',value:'L'}]},
+  {id:`variant-${i+1}-ivory-m`,stock:2,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Ivory'},{name:'Size',value:'M'}]},
+  {id:`variant-${i+1}-chocolate-xl`,stock:0,price:79+(i*17)%180,isAvailable:true,attributes:[{name:'Color',value:'Chocolate'},{name:'Size',value:'XL'}]},
  ]}));
 import {STORE_CATEGORIES} from './categories';
 
