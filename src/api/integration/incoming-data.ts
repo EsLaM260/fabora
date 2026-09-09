@@ -1,4 +1,5 @@
-export type LocalizedText = { en: string; ar?: string };
+export type { LocalizedText } from '../../types/product';
+import type { LocalizedText } from '../../types/product';
 export type CategoryChild = { slug: string; name: LocalizedText };
 export type Category = { id: string; slug: string; name: LocalizedText; imageUrl?: string; readonly children: readonly CategoryChild[] };
 

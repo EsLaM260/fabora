@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {HelmetProvider} from 'react-helmet-async';
 import App from './App';
-import {AppProvider} from './context/AppContext';
+import {AppProvider} from './providers/app-provider';
 import './index.css';
 
 const queryClient=new QueryClient({defaultOptions:{queries:{staleTime:60_000,retry:1}}});

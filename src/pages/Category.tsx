@@ -1,11 +1,11 @@
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Seo from '../component/common/Seo';
-import { getCatalog, getCategories } from '../api/contracts';
-import { useApp } from '../context/AppContext';
-import CategoryHero from '../component/category/CategoryHero';
-import CategoryControlsSection from '../component/category/CategoryControlsSection';
-import CategoryProductSection from '../component/category/CategoryProductSection';
+import Seo from '../components/Seo';
+import { getCatalog, getCategories } from '../api';
+import { useApp } from '../providers/app-provider';
+import CategoryHero from '../features/category/components/CategoryHero';
+import CategoryControlsSection from '../features/category/components/CategoryControlsSection';
+import CategoryProductSection from '../features/category/components/CategoryProductSection';
 
 export default function Category() {
   const { slug = 'women' } = useParams();

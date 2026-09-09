@@ -1,13 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Seo from '../component/common/Seo';
-import Gallery from '../component/product/Gallery';
-import { getCatalog, getProduct } from '../api/contracts';
+import Seo from '../components/Seo';
+import Gallery from '../features/product/components/Gallery';
+import { getCatalog, getProduct } from '../api';
 import { imageOf, localized } from '../utils/format';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../providers/app-provider';
 import { useTranslation } from 'react-i18next';
-import ProductDetailsSection from '../component/product/ProductDetailsSection';
-import RelatedProductsSection from '../component/product/RelatedProductsSection';
+import ProductDetailsSection from '../features/product/components/ProductDetailsSection';
+import RelatedProductsSection from '../features/product/components/RelatedProductsSection';
 
 export default function Product() {
   const { slug = '' } = useParams();

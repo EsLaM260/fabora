@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
-import Seo from '../component/common/Seo';
-import { getCatalog, getCategories } from '../api/contracts';
-import HeroSection from '../component/home/HeroSection';
-import CategorySection from '../component/home/CategorySection';
-import ProductSection from '../component/home/ProductSection';
-import NewsletterSection from '../component/home/NewsletterSection';
+import Seo from '../components/Seo';
+import { getCatalog, getCategories } from '../api';
+import HeroSection from '../features/home/components/HeroSection';
+import CategorySection from '../features/home/components/CategorySection';
+import ProductSection from '../features/home/components/ProductSection';
+import NewsletterSection from '../features/home/components/NewsletterSection';
 
 export default function Home() {
   const { t } = useTranslation();

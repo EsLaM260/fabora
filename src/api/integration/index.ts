@@ -1,5 +1,5 @@
-import { api } from '../client';
-import { endpoints } from './endpoints';
+import { api } from '../api-client';
+import { endpoints } from '../../constants/api-routes';
 import {
   integrationCategories,
   integrationProducts,
@@ -14,26 +14,10 @@ import {
   type Category,
 } from './incoming-data';
 
-export type Product = {
-  id: string;
-  name: { en: string; ar?: string } | string;
-  slug: string;
-  description: { en: string; ar?: string } | string;
-  status: string;
-  categoryId?: string | null;
-  categoryHierarchy: string[];
-  availableCountryIds: string[];
-  sizeGuide: any[];
-  media: any[];
-  variants: any[];
-};
+import type { Product } from '../../types/product';
+import type { Cart } from '../../types/cart';
 
 export type CatalogResponse = { meta: any; data: Product[] };
-export type Cart = {
-  id: string; countryId: string; currency: string; items: any[]; appliedDiscount: any;
-  pricing: { baseSubtotal: number; effectiveSubtotal: number; totalLineDiscounts: number; shippingFee: number; totalDiscount: number; finalTotal: number };
-  updatedAt: string;
-};
 
 const hasConfiguredApi = Boolean(import.meta.env.VITE_API_BASE_URL);
 const LOCAL_CART_KEY = 'fabora-demo-cart';

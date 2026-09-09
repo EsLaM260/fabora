@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Seo from '../component/common/Seo';
-import { getCart } from '../api/contracts';
-import CheckoutHeaderSection from '../component/checkout/CheckoutHeaderSection';
-import CheckoutFormSection from '../component/checkout/CheckoutFormSection';
-import CheckoutSummarySection from '../component/checkout/CheckoutSummarySection';
+import Seo from '../components/Seo';
+import { getCart } from '../api';
+import CheckoutHeaderSection from '../features/checkout/components/CheckoutHeaderSection';
+import CheckoutFormSection from '../features/checkout/components/CheckoutFormSection';
+import CheckoutSummarySection from '../features/checkout/components/CheckoutSummarySection';
 
 export default function Checkout() {
   const { t } = useTranslation();
