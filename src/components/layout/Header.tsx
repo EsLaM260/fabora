@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { getCategories } from '../../api';
 import { getCart, removeCartItem, updateCartItem } from '../../api';
 import { useApp } from '../../providers/app-provider';
-import MobileMenu from './MobileMenu';
-import MiniCart from './MiniCart';
+import MobileMenu from './mobile-menu';
+import MiniCart from './mini-cart';
 
 import logoDark from '../../assets/logo.svg';
 import logoLight from '../../assets/logo-light.svg';

@@ -2,10 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
-import Seo from '../components/Seo';
-import Filters from '../features/shop/components/Filters';
-import ShopHeader from '../features/shop/components/ShopHeader';
-import ProductGridSection from '../features/shop/components/ProductGridSection';
+import Seo from '../components/seo';
+import Filters from '../features/shop/components/filters';
+import ShopHeader from '../features/shop/components/shop-header';
+import ProductGridSection from '../features/shop/components/product-grid-section';
 import { getCatalog } from '../api';
 
 export default function Shop() {

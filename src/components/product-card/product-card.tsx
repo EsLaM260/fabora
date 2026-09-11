@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { localized, money, imageOf } from '../utils/format';
+import { localized, money, imageOf } from '../../utils/format';
 
 const FALLBACK_COLORS: Record<string, string> = {
   black: '#111111',

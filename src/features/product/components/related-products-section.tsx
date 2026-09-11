@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import ProductCard from '../../../components/ProductCard';
+import ProductCard from '../../../components/product-card';
 
 export default function RelatedProductsSection({ product, products }: { product: any; products: any[] }) {
   const nav = useNavigate();

@@ -1,6 +1,6 @@
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
-import CartItem from './CartItem';
+import CartItem from './cart-item';
 import {money} from '../../../utils/format';
 export default function CartContentSection({loading,items,pricing,onChange,onRemove}:{loading:boolean;items:any[];pricing:any;onChange:(id:string,q:number)=>void;onRemove:(id:string)=>void}){const {t}=useTranslation();
  if(loading) return <section className="w-full px-5 md:px-8 pb-20"><div className="py-20 text-center text-muted">{t('cart.loading')}</div></section>;

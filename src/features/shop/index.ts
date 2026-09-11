@@ -1,4 +1,4 @@
-export { default as Filters } from './components/Filters';
-export { default as ProductGridSection } from './components/ProductGridSection';
-export { default as ShopHeader } from './components/ShopHeader';
+export { default as Filters } from './components/filters';
+export { default as ProductGridSection } from './components/product-grid-section';
+export { default as ShopHeader } from './components/shop-header';
 export * from './api/catalog-api';

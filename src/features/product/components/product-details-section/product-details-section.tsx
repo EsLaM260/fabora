@@ -14,22 +14,22 @@ import {
   RotateCcw,
 } from 'lucide-react';
 
-import SizeSelector from './SizeSelector';
-import ColorPalette from './ColorPalette';
+import SizeSelector from '../size-selector';
+import ColorPalette from '../color-palette';
 
 import {
   localized,
   money,
-} from '../../../utils/format';
+} from '../../../../utils/format';
 
 import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
 
-import { addToCart } from '../../../api';
-import { toast } from '../../../components/Toast';
-import { useApp } from '../../../providers/app-provider';
+import { addToCart } from '../../../../api';
+import { toast } from '../../../../components/toast';
+import { useApp } from '../../../../providers/app-provider';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 

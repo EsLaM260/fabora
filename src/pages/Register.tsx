@@ -3,11 +3,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import AuthShell from '../features/auth/components/AuthShell';
-import Button from '../components/Button';
-import Seo from '../components/Seo';
+import AuthShell from '../features/auth/components/auth-shell';
+import Button from '../components/button';
+import Seo from '../components/seo';
 import { register as registerApi } from '../api';
-import { toast } from '../components/Toast';
+import { toast } from '../components/toast';
 import { useTranslation } from 'react-i18next';
 
 

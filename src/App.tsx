@@ -1,5 +1,5 @@
 import { AppRoutes } from './routes';
-import ToastHost from './components/Toast';
+import ToastHost from './components/toast';
 
 export default function App() {
   return <>

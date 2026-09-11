@@ -15,14 +15,14 @@ import {
   Mail,
 } from 'lucide-react';
 
-import Button from '../../../components/Button';
+import Button from '../../../../components/button';
 
 import {
   CheckoutInput,
   CheckoutSelect,
-} from './CheckoutField';
+} from '../checkout-field';
 
-import { toast } from '../../../components/Toast';
+import { toast } from '../../../../components/toast';
 
 import { useTranslation } from 'react-i18next';
 

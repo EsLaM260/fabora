@@ -1,4 +1,4 @@
-export { default as Button } from './Button';
-export { default as ProductCard } from './ProductCard';
-export { default as Seo } from './Seo';
-export { default as ToastHost } from './Toast';
+export { default as Button } from './button';
+export { default as ProductCard } from './product-card';
+export { default as Seo } from './seo';
+export { default as ToastHost } from './toast';

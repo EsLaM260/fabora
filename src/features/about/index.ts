@@ -1,2 +1,3 @@
-export { default as AboutIntroSection } from './components/AboutIntroSection';
-export { default as AboutValuesSection } from './components/AboutValuesSection';
+export { default as AboutIntroSection } from './components/about-intro-section';
+export { default as AboutValuesSection } from './components/about-values-section';
+export * from './api/about-api';

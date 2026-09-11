@@ -1,6 +1,6 @@
-export { default as HeroSection } from './components/HeroSection';
-export { default as CategorySection } from './components/CategorySection';
-export { default as ProductSection } from './components/ProductSection';
-export { default as NewsletterSection } from './components/NewsletterSection';
-export { default as PromoSection } from './components/PromoSection';
+export { default as HeroSection } from './components/hero-section';
+export { default as CategorySection } from './components/category-section';
+export { default as ProductSection } from './components/product-section';
+export { default as NewsletterSection } from './components/newsletter-section';
+export { default as PromoSection } from './components/promo-section';
 export * from './api/catalog-api';

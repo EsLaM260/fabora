@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import ProductCard from '../../../components/ProductCard';
+import ProductCard from '../../../components/product-card';
 export default function ProductSection({ items }: { items: any[] }) {
   const { t } = useTranslation();
   return <section className="w-full px-5 md:px-8 py-10">

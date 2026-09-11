@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import AnnouncementBar from '../components/layout/AnnouncementBar';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
+import AnnouncementBar from '../components/layout/announcement-bar';
+import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 
 export default function MainLayout() {
   return (
