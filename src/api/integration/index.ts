@@ -15,7 +15,7 @@ import {
 } from './incoming-data';
 
 import type { Product } from '../../types/product';
-import type { Cart } from '../../types/cart';
+import type { Cart, CartItem } from '../../types/cart';
 
 export type CatalogResponse = { meta: any; data: Product[] };
 
@@ -31,19 +31,19 @@ function readLocalCart(): Cart {
   }
 }
 
-function writeLocalCart(items: any[]) {
+function writeLocalCart(items: CartItem[]): Cart {
   localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(items));
   return buildLocalCart(items);
 }
 
-function buildLocalCart(items: any[]): Cart {
-  const normalized = items.map((item: any) => ({
+function buildLocalCart(items: CartItem[]): Cart {
+  const normalized: CartItem[] = items.map((item) => ({
     ...item,
     quantity: Math.max(1, Number(item.quantity) || 1),
     unitPrice: Number(item.unitPrice) || 0,
-    finalLineTotal: (Number(item.unitPrice) || 0) * (Math.max(1, Number(item.quantity) || 1)),
+    finalLineTotal: (Number(item.unitPrice) || 0) * Math.max(1, Number(item.quantity) || 1),
   }));
-  const subtotal = normalized.reduce((sum, item) => sum + item.finalLineTotal, 0);
+  const subtotal = normalized.reduce((sum, item) => sum + (item.finalLineTotal ?? 0), 0);
   return {
     id: 'local-integration-cart',
     countryId: localStorage.getItem('fabora-country') || 'EG',
@@ -55,7 +55,7 @@ function buildLocalCart(items: any[]): Cart {
   };
 }
 
-function toLocalCartItem(variantId: string, quantity: number) {
+function toLocalCartItem(variantId: string, quantity: number): CartItem {
   const found = findIntegrationVariant(variantId);
   const product = found?.product;
   const variant = found?.variant;
@@ -102,7 +102,7 @@ export async function getCategories(): Promise<Category[]> {
   }
 }
 
-export async function getCart() {
+export async function getCart(): Promise<Cart> {
   if (!hasConfiguredApi) return readLocalCart();
   try {
     const { data } = await api.get<Cart>(endpoints.cart);
@@ -112,10 +112,10 @@ export async function getCart() {
   }
 }
 
-export async function addToCart(payload: AddToCartRequest) {
+export async function addToCart(payload: AddToCartRequest): Promise<Cart> {
   if (!hasConfiguredApi) {
     const items = readLocalCart().items;
-    const index = items.findIndex((item: any) => item.variantId === payload.variantId);
+    const index = items.findIndex((item) => item.variantId === payload.variantId);
     if (index >= 0) items[index].quantity += payload.quantity;
     else items.push(toLocalCartItem(payload.variantId, payload.quantity));
     return writeLocalCart(items);
@@ -124,9 +124,9 @@ export async function addToCart(payload: AddToCartRequest) {
   return data;
 }
 
-export async function updateCartItem(variantId: string, quantity: number) {
+export async function updateCartItem(variantId: string, quantity: number): Promise<Cart> {
   if (!hasConfiguredApi) {
-    return writeLocalCart(readLocalCart().items.map((item: any) => item.variantId === variantId ? { ...item, quantity: Math.max(1, quantity) } : item));
+    return writeLocalCart(readLocalCart().items.map((item) => item.variantId === variantId ? { ...item, quantity: Math.max(1, quantity) } : item));
   }
   try {
     const { data } = await api.patch<Cart>(endpoints.updateCartItem(variantId), { quantity });
@@ -136,8 +136,8 @@ export async function updateCartItem(variantId: string, quantity: number) {
   }
 }
 
-export async function removeCartItem(variantId: string) {
-  if (!hasConfiguredApi) return writeLocalCart(readLocalCart().items.filter((item: any) => item.variantId !== variantId));
+export async function removeCartItem(variantId: string): Promise<Cart> {
+  if (!hasConfiguredApi) return writeLocalCart(readLocalCart().items.filter((item) => item.variantId !== variantId));
   try {
     const { data } = await api.delete<Cart>(endpoints.removeCartItem(variantId));
     return data;
@@ -146,7 +146,7 @@ export async function removeCartItem(variantId: string) {
   }
 }
 
-export async function applyDiscount(code: string) {
+export async function applyDiscount(code: string): Promise<Cart> {
   if (!hasConfiguredApi) return readLocalCart();
   const { data } = await api.post<Cart>(endpoints.discount, { code });
   return data;

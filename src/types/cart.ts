@@ -1,9 +1,32 @@
+export type CartItem = {
+  variantId: string;
+  productId?: string;
+  productTitle?: string;
+  name?: string;
+  imageUrl?: string;
+  image?: string;
+  color?: string;
+  size?: string;
+  unitPrice: number;
+  finalLineTotal?: number;
+  quantity: number;
+};
+
+export type CartPricing = {
+  baseSubtotal: number;
+  effectiveSubtotal: number;
+  totalLineDiscounts: number;
+  shippingFee: number;
+  totalDiscount: number;
+  finalTotal: number;
+};
+
 export type Cart = {
   id: string;
   countryId: string;
   currency: string;
-  items: unknown[];
+  items: CartItem[];
   appliedDiscount: unknown;
-  pricing: { baseSubtotal: number; effectiveSubtotal: number; totalLineDiscounts: number; shippingFee: number; totalDiscount: number; finalTotal: number };
+  pricing: CartPricing;
   updatedAt: string;
 };
